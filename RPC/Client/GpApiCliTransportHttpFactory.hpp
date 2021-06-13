@@ -16,7 +16,7 @@ public:
                                     GpApiCliTransportHttpFactory    (std::string_view           aURL,
                                                                      GpTypeMapperFactory::SP    aTypeMapperFactory,
                                                                      GpHttpClientFactory::SP    aHttpClientFactory);
-        virtual                         ~GpApiCliTransportHttpFactory   (void) noexcept override final;
+        virtual                     ~GpApiCliTransportHttpFactory   (void) noexcept override final;
 
     virtual GpApiCliTransport::SP   NewInstance                     (void) const override final;
 
