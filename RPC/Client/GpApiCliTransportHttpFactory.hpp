@@ -7,7 +7,7 @@ namespace GPlatform::API::RPC {
 class GPAPI_HTTP_API GpApiCliTransportHttpFactory final: public GpApiCliTransportFactory
 {
 public:
-    CLASS_REMOVE_CTRS(GpApiCliTransportHttpFactory)
+    CLASS_REMOVE_CTRS_DEFAULT_MOVE_COPY(GpApiCliTransportHttpFactory)
     CLASS_DECLARE_DEFAULTS(GpApiCliTransportHttpFactory)
 
 public:

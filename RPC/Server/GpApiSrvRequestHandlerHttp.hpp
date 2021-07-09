@@ -7,7 +7,7 @@ namespace GPlatform::API::RPC {
 class GPAPI_HTTP_API GpApiSrvRequestHandlerHttp: public GpHttpRequestHandler
 {
 public:
-    CLASS_REMOVE_CTRS_EXCEPT_DEFAULT(GpApiSrvRequestHandlerHttp)
+    CLASS_REMOVE_CTRS_MOVE_COPY(GpApiSrvRequestHandlerHttp)
     CLASS_DECLARE_DEFAULTS(GpApiSrvRequestHandlerHttp)
 
 protected:
