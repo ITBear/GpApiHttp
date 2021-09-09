@@ -82,7 +82,8 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
 
     if (aAfterProcessFn.has_value())
     {
-        aAfterProcessFn.value()(std::make_any<GpHttpRqRs::SP>(MakeSP<GpHttpRqRs>(httpRq, httpRs)));
+        //aAfterProcessFn.value()(std::make_any<GpHttpRqRs::SP>(MakeSP<GpHttpRqRs>(httpRq, httpRs)));
+        aAfterProcessFn.value()(std::make_any<GpHttpResponse::SP>(httpRs));
     }
 
     //TODO: move to log
