@@ -33,6 +33,8 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
 (
     const GpApiRqIfDesc&            aRq,
     const GpTypeStructInfo&         aRsTypeInfo,
+    std::optional<SerializeRqFnT>   aBeforeSerializeRqFn,
+    std::optional<SerializeRqFnT>   aAfterSerializeRqFn,
     std::optional<ProcessRqRsFnT>   aBeforeProcessFn,
     std::optional<ProcessRqRsFnT>   aAfterProcessFn
 )
@@ -44,7 +46,23 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
     GpHttpResponse::SP  httpRs;
     {
         //Serialize
-        GpBytesArray body = typeMapper.FromStruct(aRq);
+        GpBytesArray body;
+        body.reserve(512);
+
+        GpByteWriterStorageByteArray    bodyStorage(body);
+        GpByteWriter                    bodyWriter(bodyStorage);
+
+        if (aBeforeSerializeRqFn.has_value())
+        {
+            aBeforeSerializeRqFn.value()(bodyWriter);
+        }
+
+        typeMapper.FromStruct(aRq, bodyWriter);
+
+        if (aAfterSerializeRqFn.has_value())
+        {
+            aAfterSerializeRqFn.value()(bodyWriter);
+        }
 
         //TODO: move to log
         {
@@ -82,7 +100,6 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
 
     if (aAfterProcessFn.has_value())
     {
-        //aAfterProcessFn.value()(std::make_any<GpHttpRqRs::SP>(MakeSP<GpHttpRqRs>(httpRq, httpRs)));
         aAfterProcessFn.value()(std::make_any<GpHttpResponse::SP>(httpRs));
     }
 

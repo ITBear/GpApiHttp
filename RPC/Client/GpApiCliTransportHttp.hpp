@@ -24,6 +24,8 @@ public:
 
     virtual GpApiRsIfDesc::SP   ProcessRQ               (const GpApiRqIfDesc&           aRq,
                                                          const GpTypeStructInfo&        aRsTypeInfo,
+                                                         std::optional<SerializeRqFnT>  aBeforeSerializeRqFn,
+                                                         std::optional<SerializeRqFnT>  aAfterSerializeRqFn,
                                                          std::optional<ProcessRqRsFnT>  aBeforeProcessFn,
                                                          std::optional<ProcessRqRsFnT>  aAfterProcessFn) override final;
 
