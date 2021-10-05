@@ -116,18 +116,10 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
     }
 
     //Deserialize
-    GpTypeStructBase::SP rsStruct;
+    GpTypeStructBase::SP    rsStruct    = typeMapper.ToStruct(httpRs->body, aRsTypeInfo);
+    GpApiRsIfDesc::SP       res         = rsStruct.CastAs<GpApiRsIfDesc::SP>();
 
-    try
-    {
-        rsStruct = typeMapper.ToStruct(httpRs->body, aRsTypeInfo);
-    } catch(const std::exception& e)
-    {
-        std::cout << e.what() << std::endl;
-        throw;
-    }
-
-    return rsStruct.CastAs<GpApiRsIfDesc::SP>();
+    return res;
 }
 
 }//namespace GPlatform::API::RPC

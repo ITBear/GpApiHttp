@@ -57,6 +57,7 @@ GpHttpResponse::SP  GpApiSrvRequestHandlerHttp::OnRequest (const GpHttpRequest& 
         if (rs.IsNULL())
         {
             rs = method->RsTypeInfo().NewInstance().CastAs<GpApiRsIfDesc::SP>();
+            //rs = iApiManager->NewDefaultRs();
         }
 
         rs->SetResult(result);
