@@ -63,18 +63,6 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
             aAfterSerializeRqFn.value()(bodyWriter);
         }
 
-        //TODO: move to log
-        /*{
-            std::string_view bodySW = GpRawPtrCharR(body).AsStringView();
-
-            if (bodySW.length() > 1024)
-            {
-                bodySW = bodySW.substr(0, 1024);
-            }
-            std::cout << "[GpApiCliTransportHttp::ProcessRQ]: =========================== RQ =======================\n"
-                      << bodySW << std::endl;
-        }*/
-
         //Prepate HTTP RQ
         GpHttpHeaders rqHeaders;//TODO: move UP
         rqHeaders.Add(GpHttpHeaderType::CONTENT_TYPE, "application/json"_sv);
@@ -101,19 +89,6 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
     {
         aAfterProcessFn.value()(std::make_any<GpHttpResponse::SP>(httpRs));
     }
-
-    /*//TODO: move to log
-    {
-        std::string_view bodySW = GpRawPtrCharR(httpRs->body).AsStringView();
-
-        if (bodySW.length() > 1024)
-        {
-            bodySW = bodySW.substr(0, 1024);
-        }
-
-        std::cout << "[GpApiCliTransportHttp::ProcessRQ]: =========================== RS =======================\n"
-                  << bodySW << std::endl;
-    }*/
 
     //Deserialize
     GpTypeStructBase::SP    rsStruct    = typeMapper.ToStruct(httpRs->body, aRsTypeInfo);

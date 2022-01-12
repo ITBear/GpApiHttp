@@ -20,20 +20,6 @@ GpApiSrvRequestHandlerHttp::~GpApiSrvRequestHandlerHttp (void) noexcept
 
 GpHttpResponse::SP  GpApiSrvRequestHandlerHttp::OnRequest (const GpHttpRequest& aRequest)
 {
-    //TODO: reimplement with log
-    /*{
-        std::string_view bodySW = GpRawPtrCharR(aRequest.body).AsStringView();
-
-        if (bodySW.length() > 1024)
-        {
-            bodySW = bodySW.substr(0, 1024);
-        }
-
-        std::cout << "[GpApiSrvRequestHandlerHttp::OnRequest]: --------------------------- RQ ---------------------------\n"_sv;
-        std::cout << bodySW << "\n";
-        std::cout.flush();
-    }*/
-
     GpApiRqIfDesc::SP rq;
     GpApiRsIfDesc::SP rs;
 
@@ -80,20 +66,6 @@ GpHttpResponse::SP  GpApiSrvRequestHandlerHttp::OnRequest (const GpHttpRequest& 
 
     //Serialize RS data
     GpBytesArray rsBody = typeMapper->FromStruct(rs.VC());
-
-    //TODO: reimplement with log
-    /*{
-        std::string_view bodySW = GpRawPtrCharR(rsBody).AsStringView();
-
-        if (bodySW.length() > 1024)
-        {
-            bodySW = bodySW.substr(0, 1024);
-        }
-
-        std::cout << "[GpApiSrvRequestHandlerHttp::OnRequest]: --------------------------- RS ---------------------------\n"_sv;
-        std::cout << bodySW << "\n";
-        std::cout.flush();
-    }*/
 
     GpHttpHeaders headers;
     headers
