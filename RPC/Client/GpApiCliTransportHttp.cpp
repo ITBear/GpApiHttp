@@ -64,8 +64,7 @@ GpApiRsIfDesc::SP   GpApiCliTransportHttp::ProcessRQ
         }
 
         //Prepate HTTP RQ
-        GpHttpHeaders rqHeaders;//TODO: move UP
-        rqHeaders.Add(GpHttpHeaderType::CONTENT_TYPE, "application/json"_sv);
+        GpHttpHeaders rqHeaders;
 
         httpRq = MakeSP<GpHttpRequest>
         (
